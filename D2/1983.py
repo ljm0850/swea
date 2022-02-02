@@ -34,5 +34,7 @@ for i in range(1,T+1):
     #     print(f'#{i} {credits[8]}')
     # else :
     #     print(f'#{i} {credits[9]}')
-    a = round(grade*10/n)
-    print(f'#{i} {credits[a]}')
+    for k in range(1,10):
+        if grade*10/n <= k :
+            print(f'#{i} {credits[k-1]}')
+            break
