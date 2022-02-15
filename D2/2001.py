@@ -1,3 +1,4 @@
+#예전에 푼거라 내장함수 사용이 있습니다
 T = int(input())
 
 for i in range(T):
