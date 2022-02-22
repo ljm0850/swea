@@ -1,23 +1,38 @@
-import sys
-sys.stdin=open('GNS_test_input.txt')
-
-# 카운트 배열을 이용하여 풀었습니다
-# ZRO ,ONE, ... , NIN의 수를 계산하여 리스트에 개수를 기록
-#그 개수만큼 ZRO, ..., NIN 출력
-T=int(input())
-num_ord = ['ZRO', 'ONE', 'TWO', 'THR', 'FOR', 'FIV', 'SIX', 'SVN', 'EGT', 'NIN']
-for _ in range(T):
-    tc, arr_len = input().split()
-    arr_len=int(arr_len)
-    arr = input().split()
-    count_num=[0]*10 #수가 0부터 9까지 10가지
-    trs_ls = []
-
-    for i in arr:
-        for j in range(len(num_ord)):
-            if i == num_ord[j] :
-                count_num[j] += 1
-    for k in range(10):
-        trs_ls += [num_ord[k] for _ in range(count_num[k])]
-    print(tc)
-    print(*trs_ls)
+import copy
+def palindrome(arr):        #회문 판독
+    for i in range(len(arr)):
+        if arr[i] != arr[-1-i]:
+            return 0
+    else:
+        return 1
+def transpose(ls):          #전치행렬
+    ab=ls
+    for i in range(len(ls)):
+        for j in range(len(ls[0])):
+            if i < j:
+                ab[i][j],ab[j][i] = ab[j][i], ab[i][j]
+    return ab
+for _ in range(10):
+    tc= input()
+    arr=[]
+    arr = [list(input()) for _ in range(100)]
+    max_cnt = 0
+    arr1 = copy.deepcopy(arr)
+    arr2 = transpose(arr1)
+    for i in range(100):
+        if i >= 100-max_cnt:
+            break
+        for j in range(100):
+            tem = max_cnt
+            if j >= 100-max_cnt:
+                break
+            for k in range(tem,101-j)[::-1]:
+                if palindrome(arr[i][j:j+k]) :
+                    if max_cnt < k:
+                        max_cnt = k
+                    break
+                if palindrome(arr2[i][j:j+k]):
+                    if max_cnt < k:
+                        max_cnt = k
+                    break
+    print(f'#{tc} {max_cnt}')
